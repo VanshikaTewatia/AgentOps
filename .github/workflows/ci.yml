@@ -126,6 +126,17 @@ jobs:
       - name: Set up Kustomize & Kubectl
         uses: azure/setup-kubectl@v4
 
-      - name: Validate Kubernetes Manifests with Kustomize Dry-Run
+      - name: Set up Kubeconform (Offline Schema Validator)
         run: |
-          kubectl apply -k k8s/ --dry-run=client
+          KUBECONFORM_VERSION="v0.6.7"
+          curl -sL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | tar xz
+          sudo mv kubeconform /usr/local/bin/
+          kubeconform -v
+
+      - name: Validate Kustomize Build & Schema Conformity
+        run: |
+          # 1. Render all Kustomize resources to single YAML manifest
+          kubectl kustomize k8s/ > rendered-manifests.yaml
+
+          # 2. Validate rendered resources offline against standard Kubernetes schemas
+          kubeconform -strict -summary -kubernetes-version 1.30.0 rendered-manifests.yaml
