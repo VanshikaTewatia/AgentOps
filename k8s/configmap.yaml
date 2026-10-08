@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agentops-config
+  namespace: agentops
+data:
+  APP_NAME: "AGENTOPS"
+  APP_ENV: "production"
+  DEBUG: "false"
+  API_V1_PREFIX: "/api/v1"
+  HOST: "0.0.0.0"
+  PORT: "8000"
+  POSTGRES_HOST: "postgres"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "agentops"
+  REDIS_URL: "redis://redis:6379/0"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+  KAFKA_AGENT_EVENTS_TOPIC: "agentops.events"
+  EMBEDDING_PROVIDER: "mock"
+  LLM_PROVIDER: "mock"
+  EXECUTION_POLICY: "ASSISTED"
+  ALLOWED_CORS_ORIGINS: "http://localhost:3000,http://agentops.local"
+  NEXT_PUBLIC_API_BASE_URL: "http://agentops-backend:8000/api/v1"

@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: agentops-db-migration
+  namespace: agentops
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      name: agentops-db-migration
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: alembic-migration
+          image: agentops/backend:latest
+          command: ["alembic", "-c", "backend/alembic.ini", "upgrade", "head"]
+          envFrom:
+            - configMapRef:
+                name: agentops-config
+            - secretRef:
+                name: agentops-secrets
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: agentops-db-seed
+  namespace: agentops
+spec:
+  backoffLimit: 2
+  template:
+    metadata:
+      name: agentops-db-seed
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: seed-knowledge
+          image: agentops/backend:latest
+          command: ["python", "backend/app/scripts/seed_data.py"]
+          envFrom:
+            - configMapRef:
+                name: agentops-config
+            - secretRef:
+                name: agentops-secrets

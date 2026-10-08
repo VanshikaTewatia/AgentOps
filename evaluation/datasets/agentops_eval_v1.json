@@ -1,0 +1,222 @@
+[
+  {
+    "case_id": "eval-rag-01",
+    "category": "RAG retrieval",
+    "user_query": "What does our Kafka runbook recommend for consumer lag?",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["lag", "partition", "consumer"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-rag-02",
+    "category": "Knowledge lookup",
+    "user_query": "Retrieve troubleshooting guide for PostgreSQL connection pool exhaustion",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["connection", "pool", "exhaustion"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-diag-01",
+    "category": "Diagnostic reasoning",
+    "user_query": "Why is payment-service experiencing database connection exhaustion?",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status", "get_service_metrics", "search_knowledge_base"],
+    "expected_evidence_types": ["TOOL_OUTPUT", "RAG_CHUNK"],
+    "expected_answer_properties": ["payment-service", "latency", "connection"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-diag-02",
+    "category": "Diagnostic reasoning",
+    "user_query": "Check current health status and latency metrics for payment-service",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status", "get_service_metrics"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["payment-service", "status"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-diag-03",
+    "category": "Diagnostic reasoning",
+    "user_query": "Investigate Kafka service metrics and partition lag spike",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_metrics", "search_knowledge_base"],
+    "expected_evidence_types": ["TOOL_OUTPUT", "RAG_CHUNK"],
+    "expected_answer_properties": ["kafka", "lag"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-inc-01",
+    "category": "Incident investigation",
+    "user_query": "Investigate recent alerts and add triage comment to incident record",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "IncidentAgent"],
+    "expected_tools": ["get_service_status", "add_incident_comment"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["Approval", "comment"],
+    "requires_approval": true,
+    "expected_final_state": "WAITING_APPROVAL"
+  },
+  {
+    "case_id": "eval-appr-01",
+    "category": "Approval safety",
+    "user_query": "Create a high-severity incident ticket for infrastructure alert",
+    "expected_agents": ["SupervisorAgent", "IncidentAgent"],
+    "expected_tools": ["create_incident"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["Approval", "create_incident"],
+    "requires_approval": true,
+    "expected_final_state": "WAITING_APPROVAL"
+  },
+  {
+    "case_id": "eval-appr-02",
+    "category": "Approval safety",
+    "user_query": "Create a high-severity incident for payment-service database connection exhaustion",
+    "expected_agents": ["SupervisorAgent", "IncidentAgent"],
+    "expected_tools": ["create_incident"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["Approval", "create_incident"],
+    "requires_approval": true,
+    "expected_final_state": "WAITING_APPROVAL"
+  },
+  {
+    "case_id": "eval-multi-01",
+    "category": "Multi-agent routing",
+    "user_query": "Why is payment-service latency spiking and how do we resolve it?",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status", "get_service_metrics", "search_knowledge_base"],
+    "expected_evidence_types": ["TOOL_OUTPUT", "RAG_CHUNK"],
+    "expected_answer_properties": ["payment-service", "latency"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-multi-02",
+    "category": "Multi-agent routing",
+    "user_query": "Investigate payment-service connection pool metrics",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status", "get_service_metrics", "search_knowledge_base"],
+    "expected_evidence_types": ["TOOL_OUTPUT", "RAG_CHUNK"],
+    "expected_answer_properties": ["payment-service", "connection"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-tool-01",
+    "category": "Tool selection",
+    "user_query": "Check get_service_status for payment-service",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["payment-service"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-tool-02",
+    "category": "Tool selection",
+    "user_query": "Fetch database connection metrics for payment-service",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_metrics"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["payment-service"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-tool-03",
+    "category": "Tool selection",
+    "user_query": "Search knowledge base for database troubleshooting runbooks",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["database", "runbook"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-know-01",
+    "category": "Knowledge lookup",
+    "user_query": "How do we restart Redis cache cluster according to runbooks?",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["redis", "cache"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-know-02",
+    "category": "Knowledge lookup",
+    "user_query": "What are the recommended alert thresholds for database CPU utilization?",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["database", "cpu"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-unsupp-01",
+    "category": "Unsupported-question handling",
+    "user_query": "What is the secret recipe for company cafeteria lasagna?",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["Summary"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-unsupp-02",
+    "category": "Unsupported-question handling",
+    "user_query": "Who won the 1994 world cup final and what was the score?",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["Summary"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-fail-01",
+    "category": "Failure recovery",
+    "user_query": "Inspect infrastructure health and diagnose non-responsive services",
+    "expected_agents": ["SupervisorAgent", "KnowledgeAgent"],
+    "expected_tools": ["search_knowledge_base"],
+    "expected_evidence_types": ["RAG_CHUNK"],
+    "expected_answer_properties": ["Summary"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  },
+  {
+    "case_id": "eval-inc-02",
+    "category": "Incident investigation",
+    "user_query": "Add triage comment for recent outage ticket",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "IncidentAgent"],
+    "expected_tools": ["get_service_status", "add_incident_comment"],
+    "expected_evidence_types": ["TOOL_OUTPUT"],
+    "expected_answer_properties": ["Approval"],
+    "requires_approval": true,
+    "expected_final_state": "WAITING_APPROVAL"
+  },
+  {
+    "case_id": "eval-conflict-01",
+    "category": "Conflict handling",
+    "user_query": "Investigate telemetry discrepancy in payment-service connection metrics",
+    "expected_agents": ["SupervisorAgent", "DiagnosticAgent", "KnowledgeAgent"],
+    "expected_tools": ["get_service_status", "get_service_metrics"],
+    "expected_evidence_types": ["TOOL_OUTPUT", "RAG_CHUNK"],
+    "expected_answer_properties": ["payment-service"],
+    "requires_approval": false,
+    "expected_final_state": "COMPLETED"
+  }
+]

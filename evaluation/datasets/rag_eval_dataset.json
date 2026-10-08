@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eval-1",
+    "question": "What should be checked when payment-service database connections are exhausted?",
+    "expected_sources": ["payment-service-runbook.md", "database-troubleshooting.md"],
+    "category": "database_exhaustion"
+  },
+  {
+    "id": "eval-2",
+    "question": "How do you identify PostgreSQL connections stuck in idle in transaction?",
+    "expected_sources": ["database-troubleshooting.md", "payment-service-runbook.md"],
+    "category": "postgresql_locks"
+  },
+  {
+    "id": "eval-3",
+    "question": "What is the severity classification for a total payment processing outage?",
+    "expected_sources": ["incident-response.md"],
+    "category": "incident_severity"
+  },
+  {
+    "id": "eval-4",
+    "question": "How do you diagnose increasing consumer group lag in Apache Kafka?",
+    "expected_sources": ["kafka-troubleshooting.md"],
+    "category": "kafka_lag"
+  },
+  {
+    "id": "eval-5",
+    "question": "What is the recommended Redis eviction policy when running out of memory?",
+    "expected_sources": ["redis-troubleshooting.md"],
+    "category": "redis_oom"
+  },
+  {
+    "id": "eval-6",
+    "question": "What are the recommended exponential backoff and jitter retry patterns for microservices?",
+    "expected_sources": ["api-reliability.md"],
+    "category": "resilience_patterns"
+  },
+  {
+    "id": "eval-7",
+    "question": "What circuit breaker state transitions occur when error rate exceeds 50%?",
+    "expected_sources": ["api-reliability.md", "payment-service-runbook.md"],
+    "category": "circuit_breaker"
+  },
+  {
+    "id": "eval-8",
+    "question": "What standard operating procedure should an Incident Commander follow during a Sev-1 incident?",
+    "expected_sources": ["incident-response.md"],
+    "category": "incident_commander"
+  },
+  {
+    "id": "eval-9",
+    "question": "How do you detect Under-Replicated Partitions (URP) in Kafka brokers?",
+    "expected_sources": ["kafka-troubleshooting.md"],
+    "category": "kafka_partitions"
+  },
+  {
+    "id": "eval-10",
+    "question": "What is the p99 latency SLA target and maximum connection pool size for payment-service?",
+    "expected_sources": ["payment-service-runbook.md"],
+    "category": "service_sla"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "evaluation_id": "cdd3623d-2e1d-412f-bced-42887fc99b1d",
+  "dataset": "agentops-eval-v1",
+  "total_cases": 20,
+  "passed": 20,
+  "failed": 0,
+  "routing_accuracy": 1.0,
+  "tool_selection_accuracy": 1.0,
+  "grounding_rate": 0.9,
+  "provenance_rate": 0.9,
+  "conflict_detection_rate": 0.95,
+  "approval_safety_rate": 1.0,
+  "avg_latency_ms": 44.95,
+  "p95_latency_ms": 57.47,
+  "total_tokens": 0,
+  "created_at": "2026-10-07T11:27:44.744011+00:00"
+}

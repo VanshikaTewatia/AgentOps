@@ -1,0 +1,49 @@
+# Environment and credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# Git and OS
+.git/
+**/.git/
+.gitignore
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/.pytest_cache/
+.venv/
+**/.venv/
+venv/
+**/venv/
+env/
+**/env/
+.coverage
+htmlcov/
+*.sqlite3
+*.db
+
+# Node / Frontend
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+out/
+**/out/
+coverage/
+**/coverage/
+test-artifacts/
+**/test-artifacts/
+
+# Docker build caches
+.dockerignore
+Dockerfile
+docker-compose*.yml
